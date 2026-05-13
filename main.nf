@@ -19,7 +19,10 @@ include { ALPHAFLOW  } from './workflows/alphaflow'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_alphaflow_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_alphaflow_pipeline'
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_alphaflow_pipeline'
-
+include { KRAKEN2_KRAKEN2 } from './modules/nf-core/kraken2/kraken2'
+include { DADA2_DENOISING } from './modules/local/dada2/dada2_denoising'
+include { DADA2_TAXONOMY  } from './modules/local/dada2/dada2_taxonomy'
+include { PICRUST         } from './modules/local/picrust'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     GENOME PARAMETER VALUES
@@ -43,15 +46,31 @@ params.fasta = getGenomeAttribute('fasta')
 workflow NFCORE_ALPHAFLOW {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+    ch_samplesheet // Cleaned reads from Group A
 
     main:
+    DADA2_DENOISING ( ch_samplesheet )
+
+    /* Comment out everything else for a moment
+    DADA2_TAXONOMY ( 
+        DADA2_DENOISING.out.denoised, 
+        params.dada2_taxonomy_dict, 
+        params.dada2_species_dict 
+    )
+
+    PICRUST ( 
+        DADA2_DENOISING.out.denoised, 
+        DADA2_DENOISING.out.seqtab, 
+        "DADA2", 
+        "Predicting functions" 
+    )
+    */
 
     //
     // WORKFLOW: Run pipeline
     //
     ALPHAFLOW (
-        samplesheet,
+        ch_samplesheet,
         params.multiqc_config,
         params.multiqc_logo,
         params.multiqc_methods_description,

@@ -245,5 +245,15 @@
         {
             "$ref": "#/$defs/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "dada2_taxonomy_dict": {
+            "type": "string",
+            "default": "/Users/mariapaupijoan/Desktop/Master/3rd TERM/AGB/alphaflow/biodb/dada2/silva_nr99_v138.2_toGenus_trainset.fa.gz"
+        },
+        "dada2_species_dict": {
+            "type": "string",
+            "default": "/Users/mariapaupijoan/Desktop/Master/3rd TERM/AGB/alphaflow/biodb/dada2/silva_v138.2_assignSpecies.fa.gz"
+        }
+    }
 }
