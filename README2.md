@@ -1,13 +1,25 @@
 # Organization of the folders
 
-Class-Repo/
-└── alphaflow/              <-- Your Group B work
-    ├── main.nf
-    ├── nextflow.config
-    ├── modules/
-    ├── workflows/
-    └── assets/
-        └── samplesheet.csv  <-- Group A edits this
+AGB2026/
+├── alphaflow/                <-- Group B: The Nextflow Pipeline
+│   ├── main.nf               <-- Entry point
+│   ├── nextflow.config       <-- Configurations (Profiles, Params)
+│   ├── modules/              <-- Local & nf-core modules
+│   ├── workflows/            <-- Your alphaflow.nf logic
+│   ├── subworkflows/         <-- Helper subworkflows
+│   ├── assets/
+│   │   ├── samplesheet.csv   <-- Group A fills this in
+│   │   └── schema_input.json <-- Validation rules
+│   └── .gitignore            <-- MUST include "biodb/" and "work/"
+│
+├── group_a_scripts/          <-- Group A: Pre-processing scripts
+│   ├── trimming.sh
+│   └── quality_control.py
+│
+├── docs/                     <-- Documentation, images for the report
+│   └── design_v1.png
+│
+└── README.md                 <-- General instructions for the whole class
 
 ## Considerations for Group A
 
